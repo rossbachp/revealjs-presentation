@@ -1,5 +1,17 @@
 # Build my own reveal.js container
 
+## commands
+
+  - Install boot2docker or your on docker host/vm
+  - make presentation images
+    `make build`
+  - test slides
+    `make slides`
+  - run shell inside revealjs presentation image
+    `make shell`
+  - pull ready presentation
+    `docker pull rossbachp/presentation`
+        
 ## Some usefull links
   - [reveal.js](https://github.com/hakimel/reveal.js/)
   - [docker.io](http://www.docker.io)
