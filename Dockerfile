@@ -2,10 +2,8 @@ FROM ubuntu:14.04
 
 MAINTAINER Peter Rossbach <peter.rossbach@bee42.com>
 
-RUN echo "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) main universe" > /etc/apt/sources.list
-RUN echo "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc)-updates main universe" >> /etc/apt/sources.list
-RUN apt-get update
-
+RUN apt-get update --fix-missing
+RUN apt-get install --only-upgrade bash
 RUN apt-get -y -q install wget
 RUN apt-get -y -q install nodejs npm
 RUN apt-get -y -q install nodejs-legacy
@@ -25,6 +23,7 @@ RUN npm install
 RUN sed -i Gruntfile.js -e 's/port: port,/port: port, hostname: "",/'
 
 ADD index.html /opt/presentation/
+ADD logo.png /opt/presentation/
 ADD custom.css /opt/presentation/css/
 ADD title.js /opt/presentation/plugin/
 
