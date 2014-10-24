@@ -1,6 +1,8 @@
 # Build your own slide software with slidefire
 
-** My Goals**
+**My Goals**
+
+
   * Use, build, make and bundle with the beautifull slide framework reveal.js
   * develop your slide with markdown
   * add picture to your slides
