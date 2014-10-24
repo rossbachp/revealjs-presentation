@@ -60,10 +60,10 @@ Simpler and lighter is better. reveal.js is a slide show presenter the not need 
 
 ```bash
 $ mkdir build
-$ docker run -ti -d --name slidefire -v `pwd`/images:/opt/presentation/images -v  `pwd`:/opt/presentation/lib/md -v `pwd`/build:/build -p 8000:8000 rossbachp/presentation /bin/bash -c "grunt package mv reveal-js-presentation.zip /build"
+$ docker run -ti -d --name slidefire -v `pwd`/images:/opt/presentation/images -v  `pwd`:/opt/presentation/lib/md -v `pwd`/build:/build -p 8000:8000 rossbachp/presentation /bin/bash -c "grunt package && mv reveal-js-presentation.zip /build"
 $ cd build
 $ mkdir slidefire
-$ cd slildefire
+$ cd slidefire
 # you must have zip installed - apt-get install -y zip
 $ unzip ../reveal-js-presentation.zip
 $ cd ..
@@ -109,10 +109,42 @@ FROM progrium/busybox
 MAINTAINER Peter Rossbach <peter.rossbach@bee42.com>
 
 RUN opkg-install base-files bash lighttpd
-ADD slidefire.tar.gz /www
+ONBUILD slidefire.tar.gz /www
 EXPOSE 80
 
 CMD ["lighttpd", "-D","-f", "/etc/lighttpd/lighttpd.conf"]
+```
+
+```bash
+#!/bin/bash
+DECK=slidefire
+if [ ! "x" == "x`docker ps -a | grep $DECK`" ]; then
+  docker rm $DECK
+fi
+
+mkdir -p build
+PWD=`pwd`
+mkdir -p build/md
+cp slides.md build/md
+docker run -ti -d --name $DECK -v $PWD/images:/opt/presentation/images -v  $PWD/build/md:/opt/presentation/lib/md -v $PWD/build:/build -p 8000:8000 rossbachp/presentation /bin/bash -c "grunt package && mv reveal-js-presentation.zip /build/$DECK.zip"
+cd build
+mkdir -p $DECK
+cd $DECK
+#you must have zip installed - apt-get install -y zip
+unzip ../$DECK.zip
+cd ..
+tar czf slidefire.tar.gz $DECK
+cat <<EOT >> Dockerfile
+FROM rossbachp/slidefire
+MAINTAINER Peter Rossbach <peter.rossbach@bee42.com>
+EOT
+docker build -t=rossbachp/$DECK .
+
+docker stop $DECK
+docker rm $DECK
+rm -rf build/$DECK
+rm -rf build/md
+
 ```
 
 Access the slide show

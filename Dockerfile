@@ -40,5 +40,4 @@ ONBUILD ADD slides.md /opt/presentation/lib/md/
 ONBUILD ADD images /opt/presentation/images/
 
 EXPOSE 8000
-VOLUME ["/opt/presentation/lib/md/"]
 CMD ["grunt", "serve"]
