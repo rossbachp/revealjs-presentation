@@ -264,6 +264,26 @@ Formating content
 </section>
 ```
 
+## Support presenter
+
+What you want is that it would navigate to "next" instead of "right", which is the default binding for right arrow key. You can achieve this by overriding the default key bindings. There is some documentation here:
+
+[keyboard-bindings](https://github.com/hakimel/reveal.js/#keyboard-bindings)
+
+In your case you would like the right arrow key (keycode 39) to bind to "next" and probably also override left arrow key (keycode 37) to bind to "prev". Here is the sample code (add this to the Reveal.initialize configuration add the end of the file):
+
+```
+keyboard: {
+    39: 'next',
+    37: 'prev'
+}
+```
+
+## SVG at reveal.js
+
+[SVG and revealjs](http://bl.ocks.org/bollwyvl/fe1d2806449487cdf88a)
+
+
 ## Some usefull links
   - [reveal.js](https://github.com/hakimel/reveal.js/)
   - [reveal.js Container](http://mindtrove.info/a-reveal.js-docker-base-image-with-onbuild/)
