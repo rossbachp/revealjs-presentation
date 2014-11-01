@@ -36,6 +36,12 @@ ADD logo.png /opt/presentation/
 ADD custom.css /opt/presentation/css/
 ADD title.js /opt/presentation/plugin/
 
+# Add new print support - andreas.knuth@gmail.com
+ADD print /opt/presentation/print
+RUN apt-get update --fix-missing
+RUN apt-get install -y libxslt1.1 libicu52
+RUN chmod +x /opt/presentation/print/print.sh /opt/presentation/print/phantomjs
+
 ONBUILD ADD slides.md /opt/presentation/lib/md/
 ONBUILD ADD images /opt/presentation/images/
 

@@ -203,6 +203,23 @@ index.html
   * No real good print.css available
   * I need help!
 
+After some hack from [Andreas Knuth](mailto:<andreas.knuth@gmail.com>) this printing work at A4-portrait!
+```bash
+$ docker exec -ti <CID from your presentation container> /bin/bash
+$ cd print
+$ ./print.sh /build/<name>.pdf
+$ exit
+```
+
+You can change the copyright notice
+
+```bash
+$ docker exec -ti <CID from your presentation container> /bin/bash
+$ cd print
+$ ./phantomjs slidefire.js http://127.0.0.1:8000/?print-pdf /build/<name>.pdf "<your html encoded copyright>"
+$ exit
+```
+
 ## build the slide developer kid
 
   - Install boot2docker or your on docker host/vm
@@ -283,6 +300,8 @@ keyboard: {
 
 [SVG and revealjs](http://bl.ocks.org/bollwyvl/fe1d2806449487cdf88a)
 
+
+convert  +antialias -background none in.svg out.png
 
 ## Some usefull links
   - [reveal.js](https://github.com/hakimel/reveal.js/)
