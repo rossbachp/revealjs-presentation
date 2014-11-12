@@ -80,7 +80,7 @@ a:visited {
 .reveal pre code {
 	overflow: hidden !important;
 	font-family: monospace !important;
-    font-size: 10pt;
+    font-size: 12pt;
 }
 
 
@@ -138,14 +138,15 @@ ul, ol, div, p {
 /*
 	height: 210mm !important;
 	min-height: 210mm !important;
-*/
+*/  
 	display: block !important;
 	overflow: hidden !important;
 
 	left: 0 !important;
-	top: 0 !important;
+/*	top: 0 !important;*/
+/*    top: 100px !important;*/
 	margin: 0 !important;
-	padding: 1cm 1cm 0 1cm !important;
+	padding: 1cm 0.5cm 0 0.5cm !important;
 	box-sizing: border-box !important;
 
 	opacity: 1 !important;
@@ -193,6 +194,7 @@ ul, ol, div, p {
 }
 .reveal img {
 	box-shadow: none;
+   /* max-height: 150mm;*/
 }
 .reveal .roll {
 	overflow: visible;
