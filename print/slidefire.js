@@ -18,7 +18,7 @@ if (system.args.length != 4) {
         footer: {
             height: "0.5cm",
             contents: phantom.callback(function(pageNum, numPages) {
-                return "<div style='background-color:#20252e;color: #ffffff;font-size: 8pt;width:29.7cm;height:0.4cm;padding:10px;margin-top: -10px !important ;margin-left:-10px !important;border: 0;padding: 0;'> <span style='padding:5px'>&#169; " + copyright + "</span><span style='float:right'>" + pageNum + " / " + numPages + "</span></div>";
+                return "<div style='background-color:#20252e;color: #ffffff;font-size: 8pt;width:29.7cm;height:0.55cm !important;margin-top: -10px !important ;margin-left:-10px !important;border: 0;padding: 4 5 0 3;'> <span style='padding:5px'>&#169; " + copyright + "</span><span style='float:right'>" + pageNum + " / " + numPages + "</span></div>";
             })
         }
     };
@@ -32,11 +32,19 @@ if (system.args.length != 4) {
             console.log('jquery injected '+suc);
 
             page.evaluate(function() {
-                jQuery('section.stack > section').unwrap();
                 jQuery('.slide-background').remove();
+                jQuery('section.stack > section').unwrap();
+                
             });
             
             page.evaluate(function() {
+                
+                function injectStyles(rule) {
+                  var div = $("<div />", {
+                    html: '&shy;<style>' + rule + '</style>'
+                  }).appendTo("body");    
+                }                
+                
                 jQuery('section').each(function( index ) {
                     jQuery(this).css('display','block');
                     var h = jQuery( this ).height();
@@ -72,7 +80,13 @@ if (system.args.length != 4) {
                       console.log('||--> '+str);  
                     }
                 });
-
+                
+                jQuery('.reveal pre code').css('font-size','12pt');
+                jQuery('.reveal .slides section').css('padding','1cm 0.5cm 0 0.5cm !important');
+                jQuery('.reveal .slides').css('text-align','center');
+                injectStyles('.reveal .slides section{ min-height:100% !important }');
+                injectStyles('.reveal .slides section{ height:100% !important }');
+                injectStyles('.reveal .slides section{ padding: 1cm 0.5cm 0 0.5cm !important }');
             });
             
                     
@@ -87,6 +101,5 @@ page.onConsoleMessage = function(msg, lineNum, sourceId) {
 };
 
 page.onError = function (msg) {
-	console.log(msg);
+	console.log('~~~ '+msg);
 }
-
