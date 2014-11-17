@@ -3,7 +3,7 @@ var page = require('webpage').create(),
     address, output, size;
     
 if (system.args.length != 4) {
-    console.log('Usage: rasterize.js URL filename copyright');
+    console.log('Usage: slidefire.js URL filename copyright');
     phantom.exit(1);
 } else {
     address = system.args[1];
