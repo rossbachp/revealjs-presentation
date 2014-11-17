@@ -220,6 +220,22 @@ $ ./phantomjs slidefire.js http://127.0.0.1:8000/?print-pdf /build/<name>.pdf "<
 $ exit
 ```
 
+Add PDF Meta Data
+
+```bash
+$ DATE=`date +'%Y'`
+$ exiftool -Title="Docker XXX" -Author="Peter Rossbach" -copyright="${DATE} <peter.rossbach@bee42.com>, XXX" -Creator="bee42 solutions gmbh" /build/<name>.pdf
+$ exiftool -a -u -g2 /build/<name>.pdf
+```
+
+  * [ExifTool Examples GER](http://wiki.ubuntuusers.de/ExifTool)
+  * see `print/exif.sh`
+
+Add Password
+```bash
+pdftk /build/<name>.pdf output /build/<name>_encrypted.pdf owner_pw "<secret>"
+```
+
 ## build the slide developer kid
 
   - Install boot2docker or your on docker host/vm

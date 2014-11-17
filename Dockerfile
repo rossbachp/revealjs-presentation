@@ -40,10 +40,17 @@ ADD title.js /opt/presentation/plugin/
 ADD print /opt/presentation/print
 RUN apt-get update --fix-missing
 RUN apt-get install -y libxslt1.1 libicu52
-RUN chmod +x /opt/presentation/print/print.sh /opt/presentation/print/phantomjs
+RUN chmod +x /opt/presentation/print/*.sh /opt/presentation/print/phantomjs
+
+# Handling PDF Metadata and Passwords
+RUN apt-get -y -q install exiftool pdftk
 
 ONBUILD ADD slides.md /opt/presentation/lib/md/
 ONBUILD ADD images /opt/presentation/images/
 
 EXPOSE 8000
 CMD ["grunt", "serve"]
+
+ADD LICENSE /etc/LICENSE
+
+RUN echo "rossbachp presentation" >/etc/provisioned && date >>/etc/provisioned && echo >>/etc/provisioned && echo " Copyright by <peter.rossbach@bee42.com> bee42 solutions gmbh" >>/etc/provisioned
