@@ -32,11 +32,11 @@ ln -s /usr/local/share/phantomjs-1.9.7-linux-x86_64/bin/phantomjs /usr/local/bin
 ln -s /usr/local/share/phantomjs-1.9.7-linux-x86_64/bin/phantomjs /usr/bin/phantomjs
 
 ADD index.html /opt/presentation/
-ADD logo.png /opt/presentation/
+ADD logo.png /opt/presentation/lib/logo.png
 ADD custom.css /opt/presentation/css/
 ADD title.js /opt/presentation/plugin/
 
-# Add new print support - andreas.knuth@gmail.com
+# Add new print support - andreas.knuth
 ADD print /opt/presentation/print
 RUN apt-get update --fix-missing
 RUN apt-get install -y libxslt1.1 libicu52
