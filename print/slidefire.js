@@ -1,7 +1,7 @@
 var page = require('webpage').create(),
     system = require('system'),
     address, output, size;
-    
+
 if (system.args.length != 4) {
     console.log('Usage: slidefire.js URL filename copyright');
     phantom.exit(1);
@@ -22,7 +22,7 @@ if (system.args.length != 4) {
             })
         }
     };
-    
+
     page.open(address, function (status) {
         if (status !== 'success') {
             console.log('Unable to load the address!');
@@ -33,24 +33,24 @@ if (system.args.length != 4) {
 
             page.evaluate(function() {
                 jQuery('.slide-background').remove();jQuery('section.stack > section').unwrap();
-                
+
             });
-            
+
             page.evaluate(function() {
-                
+
                 function injectStyles(rule) {
                   var div = $("<div />", {
                     html: '&shy;<style>' + rule + '</style>'
-                  }).appendTo("body");    
-                }                
-                
+                  }).appendTo("body");
+                }
+
                 jQuery('section').each(function( index ) {
                     jQuery(this).css('display','block');
                     var h = jQuery( this ).height();
                     //var w = jQuery( this ).width();
                     console.log( index + " : " + h );
 		    //var id = "biene"+index;
-	            //jQuery( this ).append('<div id="'+id+'" style="background-image: url(logo.png);position: absolute;top: 50px;left: 50px;width: 210px;height: 164px;background-repeat:no-repeat;">');        
+	            //jQuery( this ).append('<div id="'+id+'" style="background-image: url(logo.png);position: absolute;top: 50px;left: 50px;width: 210px;height: 164px;background-repeat:no-repeat;">');
 		    //console.log('id:'+id);
 		    if (h!=0){
                         console.log( index + " : " + h );
@@ -59,8 +59,8 @@ if (system.args.length != 4) {
                         if (zh<1){
                             jQuery( this ).css('zoom',zh);
 			    //jQuery('#'+id).css('zoom',1/zh/10);
-                            try { 
-                              //jQuery( this ).find('h3,h2,h1,h4,h5').css('zoom',(1)); 
+                            try {
+                              //jQuery( this ).find('h3,h2,h1,h4,h5').css('zoom',(1));
                             } catch (e){
                               console.log(e);
                             }
@@ -69,7 +69,7 @@ if (system.args.length != 4) {
 			}
                     }
                 });
-                
+
 
                 jQuery('section').each(function( index ) {
                     var h = jQuery( this ).height();
@@ -79,27 +79,27 @@ if (system.args.length != 4) {
                       var top = (539-h)/2;
                       var str = top+'px';
                       //jQuery( this ).css('top',str);
-                      console.log('||--> '+str);  
+                      console.log('||--> '+str);
                     }
                 });
-                
+
                 //jQuery('.reveal pre code').css('font-size','12pt');
                 //jQuery('.reveal .slides section').css('padding','1cm 0.5cm 0 0.5cm !important');
                 //jQuery('.reveal .slides').css('text-align','center');
 		//jQuery('section').append('<div style="background-image: url(logo.png);position: absolute;top: -10px;right: -5px;width: 210px;height: 164px;background-repeat:no-repeat;">');
-		jQuery('#myLogo').remove();        
+		jQuery('#myLogo').remove();
 		jQuery('section').each(function( index ) {
 			var id = "biene"+index;
 			console.log('id:'+id);
-			jQuery( this ).append('<div id="'+id+'" style="background-image: url(logo.png);position: absolute;top: 50px;left: 50px;width: 210px;height: 164px;background-repeat:no-repeat;">');
+			jQuery( this ).append('<div id="'+id+'" style="background-image: url(lib/logo.png);position: absolute;top: 50px;left: 50px;width: 210px;height: 164px;background-repeat:no-repeat;">');
 			jQuery('#'+id).css('zoom',0.3);
-		});                
+		});
 		injectStyles('.reveal .slides section{ min-height:100% !important }');
                 injectStyles('.reveal .slides section{ height:100% !important }');
                 injectStyles('.reveal .slides section{ padding: 1cm 0.5cm 0 0.5cm !important }');
             });
-            
-                    
+
+
             page.render(output);
             phantom.exit();
         }
